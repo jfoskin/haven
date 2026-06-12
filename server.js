@@ -11,6 +11,7 @@ const PORT = process.env.PORT
 
 //Import routes
 const countriesRoutes = require('./routes/countriesRoutes')
+const usersRoutes = require('./routes/usersRoutes')
 
 
 //Middleware
@@ -36,6 +37,7 @@ app.get('/about',(req,res)=>{
 })
 
 app.use('/', countriesRoutes)
+app.use('/', usersRoutes)
 
 //Ports
 
