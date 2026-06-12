@@ -34,10 +34,8 @@ app.get('/api/countries', async (req, res)=>{
     try {
      
 
-        let response = await countriesClient.get(`https://api.restcountries.com/countries/v5?&limit=3`)
-
-        console.log(response)
-        // let response = await axios.get(`https://jsonplaceholder.typicode.com/users`)
+        // let response = await countriesClient.get(`https://api.restcountries.com/countries/v5?&limit=3`)
+     
 
         res.json(response.data)
 
