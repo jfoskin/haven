@@ -1,3 +1,5 @@
+//Dependacies
+
 const express = require('express')
 const countriesClient = require('../api/countriesClient')
 
@@ -8,7 +10,7 @@ countriesRoutes.get('/api/countries', async (req, res)=>{
 
     try {
      
-        let response = await countriesClient.get(`https://api.restcountries.com/countries/v5?&limit=3`)
+        // let response = await countriesClient.get(`https://api.restcountries.com/countries/v5?&limit=3`)
      
         res.json(response.data)
 

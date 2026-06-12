@@ -1,13 +1,19 @@
+//Dependacies
+
 require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
 const countriesClient = require('./api/countriesClient')
-const countriesRoutes = require('./routes/countriesRoutes')
 
 const app = express()
 const PORT = process.env.PORT
 
 
+//Import routes
+const countriesRoutes = require('./routes/countriesRoutes')
+
+
+//Middleware
 
 countriesClient.interceptors.request.use(config =>{
 console.log(`sending headers hopefully`)
@@ -19,7 +25,8 @@ console.log(`sending headers hopefully`)
   return Promise.reject(error);
 })
 
-
+//Routes
+ 
 app.get('/',(req,res)=>{
     res.send(`Welcome to my drop of hope on the World Wide Web`)
 })
@@ -29,6 +36,8 @@ app.get('/about',(req,res)=>{
 })
 
 app.use('/', countriesRoutes)
+
+//Ports
 
 app.listen(PORT,()=>{
     console.log(`your server is listening on ${PORT}`)
