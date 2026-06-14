@@ -2,11 +2,17 @@
 
 require('dotenv').config()
 const express = require('express')
+const { MongoClient } = require('mongodb')
 const axios = require('axios')
+const app = express()
+
+// AUTH
 const countriesClient = require('./api/countriesClient')
 
-const app = express()
-const PORT = process.env.PORT
+
+//Local Variables
+const PORT = process.env.PORT || 5469
+const uri = process.env.MONGODBURI
 
 
 //Import routes
@@ -15,6 +21,18 @@ const usersRoutes = require('./routes/usersRoutes')
 
 
 //Middleware
+
+const client = new MongoClient(uri)
+
+async function mongodbCOnnection () {
+    try {
+        await client.connect()
+
+        console.log(`Database connection is succesful`)
+    } catch (error) {
+        console.log(`AN ERROR has OCCURED... an error HAS occured`,error)
+    }
+}
 
 countriesClient.interceptors.request.use(config =>{
 console.log(`sending headers hopefully`)
