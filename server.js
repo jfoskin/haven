@@ -64,6 +64,8 @@ app.get('/about',(req,res)=>{
     res.send(`This project started with passion for looking at our ever changing world and wanting to contribute a peace of hope but awareness to people as they traverse this beautiful earth we have been given. It was also important for me to highlight the different cultures and cultural norms you could face. I don't believe that we are all meant to be the same person but I believe in the basic principal of respect and that is for all marginaled people. So my solution was to create a space that allowed for information and community to be fostered so we can feel safe no matter where we go on this earth that was gifted to ALL species`)
 })
 
+app.post('')
+
 app.use('/', countriesRoutes)
 app.use('/', usersRoutes)
 
