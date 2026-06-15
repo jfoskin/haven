@@ -5,20 +5,30 @@ const express = require('express')
 const { MongoClient } = require('mongodb')
 const axios = require('axios')
 const app = express()
+const mongoose = require('mongoose')
 
 // AUTH
 const countriesClient = require('./api/countriesClient')
 
 
 //Local Variables
-const PORT = process.env.PORT || 5469
-const uri = process.env.MONGODBURI
+const PORT = process.env.PORT || 4469
+const uri = process.env.DATABASEURL
 
 
 //Import routes
 const countriesRoutes = require('./routes/countriesRoutes')
 const usersRoutes = require('./routes/usersRoutes')
 
+
+//Database connection
+mongoose.connect(uri)
+
+const db = mongoose.connection
+
+db.on('error', (error)=> console.log(error.message,`Database has an error`))
+db.on('connected', ()=> console.log(`Database has successfully connected`))
+db.on('disconnected', ()=> console.log(`Database has disconnected`))
 
 //Middleware
 
@@ -30,7 +40,7 @@ async function mongodbCOnnection () {
 
         console.log(`Database connection is succesful`)
     } catch (error) {
-        console.log(`AN ERROR has OCCURED... an error HAS occured`,error)
+        console.log(`AN ERROR has OCCURED while trying to connect to MongoDB... an error HAS occured`,error)
     }
 }
 
@@ -61,4 +71,5 @@ app.use('/', usersRoutes)
 
 app.listen(PORT,()=>{
     console.log(`your server is listening on ${PORT}`)
+    mongodbCOnnection()
 })
