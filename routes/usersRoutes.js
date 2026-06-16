@@ -4,6 +4,7 @@ const express = require('express')
 const usersRoutes = express.Router()
 
 const User = require('../models/UserModel')
+const { ReturnDocument } = require('mongodb')
 
 //Routes
 
@@ -14,7 +15,11 @@ usersRoutes.get('/api/users', (req, res) => {
 })
 usersRoutes.get('/api/user/:username', async (req, res) => {
 
-    const specificUser = await User.findOne({ 'username': req.params.username })
+    const specificUser = await User.findOne({ 'username': req.params.username }).then(foundUser => {
+        console.log(`Got the user we were looking for ${foundUser}`)
+    }).catch(error => {
+        console.log(error, `Error getting the user we are looking for!`)
+    })
 
     console.log(` user routes hit`)
     res.send(`users routes are here`, specificUser)
@@ -32,8 +37,17 @@ usersRoutes.post('/api/user/', async (req, res) => {
     res.send(req.body)
 })
 
-usersRoutes.post('/api/users', (req, res) => {
-    console.log(`hey yall don't stop`)
+usersRoutes.patch('/api/user/:id', async (req, res) => {
+
+    const options = { returnDocument: after }
+
+    const response = await User.findByIdAndUpdate(req.params.id, req.body, options)
+
+    res.send('updated the user')
 })
+
+// usersRoutes.post('/api/users', (req, res) => {
+//     console.log(`hey yall don't stop`)
+// })
 
 module.exports = usersRoutes;

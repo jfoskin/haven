@@ -1,1 +1,10 @@
-const mongoose = require('mongoose')
+const mongoose, { Schema } = require('mongoose')
+
+
+const countrySchema = new Schema({
+    countryName: String
+})
+
+const Country = mongoose
+
+
