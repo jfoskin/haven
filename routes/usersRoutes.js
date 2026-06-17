@@ -44,6 +44,10 @@ usersRoutes.patch('/api/user/:id', async (req, res) => {
     const response = await User.findByIdAndUpdate(req.params.id, req.body, options)
 
     res.send('updated the user')
+});
+
+usersRoutes.delete('/api/user/:id', (req, res) => {
+    const removed = User.findByIdAndDelete(req.params.id)
 })
 
 // usersRoutes.post('/api/users', (req, res) => {
