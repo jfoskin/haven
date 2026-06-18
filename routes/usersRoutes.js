@@ -14,14 +14,24 @@ const User = require('../models/UserModel')
 // })
 usersRoutes.get('/api/user/:username', async (req, res) => {
 
-    const specificUser = await User.findOne({ 'username': req.params.username }).then(foundUser => {
-        console.log(`Got the user we were looking for ${foundUser}`)
-    }).catch(error => {
-        console.log(error, `Error getting the user we are looking for!`)
-    })
+    try {
+        const foundUser = await User.findOne({ username: req.body })
+    } catch (error) {
+        console.log(`Error getting user`, error)
+        res.status(400).json({
+            error: `Error with getting user`,
+            details: error.message
+        })
+    }
 
-    console.log(` user routes hit`)
-    res.send(`users routes are here`, specificUser)
+    // const specificUser = await User.findOne({ 'username': req.params.username }).then(foundUser => {
+    //     console.log(`Got the user we were looking for ${foundUser}`)
+    // }).catch(error => {
+    //     console.log(error, `Error getting the user we are looking for!`)
+    // })
+
+    // console.log(` user routes hit`)
+    // res.send(`users routes are here`, specificUser)
 })
 
 
@@ -46,7 +56,16 @@ usersRoutes.patch('/api/user/:id', async (req, res) => {
 });
 
 usersRoutes.delete('/api/user/:id', (req, res) => {
-    const removed = User.findByIdAndDelete(req.params.id)
+    try {
+        const removed = User.findByIdAndDelete(req.params.id)
+
+    } catch (error) {
+        console.log(`Error while trying to  delete user`)
+        res.status(400).json({
+            error: `Failed to delete user`,
+            details: error.message
+        })
+    }
 })
 
 // usersRoutes.post('/api/users', (req, res) => {
