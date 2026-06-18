@@ -3,15 +3,15 @@
 const express = require('express')
 const countriesClient = require('../api/countriesClient')
 
-const  countriesRoutes = express.Router()
+const countriesRoutes = express.Router()
 
 //get all countries route
-countriesRoutes.get('/api/countries', async (req, res)=>{
+countriesRoutes.get('/api/countries', async (req, res) => {
 
     try {
-     
+
         // let response = await countriesClient.get(`https://api.restcountries.com/countries/v5?&limit=3`)
-     
+
         res.json(response.data)
 
         // const transformedCountriesData = data.data.objects.map(country => ({
@@ -23,7 +23,7 @@ countriesRoutes.get('/api/countries', async (req, res)=>{
 
     } catch (error) {
         console.error('Error fetching or transforming users:', error);
-        res.status(500).send(`Countries not found`)
+        res.status(400).send(`Error requesting countries`, error)
     }
 
 });

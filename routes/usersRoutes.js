@@ -1,18 +1,17 @@
-//Dependacies
+//Dependencies 
 
 const express = require('express')
 const usersRoutes = express.Router()
 
 const User = require('../models/UserModel')
-const { ReturnDocument } = require('mongodb')
 
 //Routes
 
-usersRoutes.get('/api/users', (req, res) => {
-    console.log(`hey`)
+// usersRoutes.get('/api/user', (req, res) => {
+//     console.log(`hey`)
 
-    res.send('booooooo')
-})
+//     res.send('booooooo')
+// })
 usersRoutes.get('/api/user/:username', async (req, res) => {
 
     const specificUser = await User.findOne({ 'username': req.params.username }).then(foundUser => {
